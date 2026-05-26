@@ -3,11 +3,17 @@ using UnityEngine;
 public class StudyInteraction : MonoBehaviour
 {
     bool playerInside = false;
+    PlayerInteractionAnimator playerAnimator;
 
     void Update()
     {
         if(playerInside && Input.GetKeyDown(KeyCode.E))
         {
+            if(playerAnimator != null)
+            {
+                playerAnimator.TriggerInteraction("Study", 2f);
+            }
+
             GameManager.instance.Study();
         }
     }
@@ -17,6 +23,7 @@ public class StudyInteraction : MonoBehaviour
         if(other.CompareTag("Player"))
         {
             playerInside = true;
+            playerAnimator = other.GetComponent<PlayerInteractionAnimator>();
 
             GameUIManager.instance.ShowMessage("Press E To Study");
         }
@@ -27,6 +34,7 @@ public class StudyInteraction : MonoBehaviour
         if(other.CompareTag("Player"))
         {
             playerInside = false;
+            playerAnimator = null;
 
             GameUIManager.instance.HideMessage();
         }

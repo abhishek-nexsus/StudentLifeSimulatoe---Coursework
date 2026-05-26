@@ -3,11 +3,17 @@ using UnityEngine;
 public class GamingInteraction : MonoBehaviour
 {
     bool playerInside = false;
+    PlayerInteractionAnimator playerAnimator;
 
     void Update()
     {
         if(playerInside && Input.GetKeyDown(KeyCode.E))
         {
+            if(playerAnimator != null)
+            {
+                playerAnimator.TriggerInteraction("Gaming", 2f);
+            }
+
             GameManager.instance.PlayGame();
         }
     }
@@ -17,6 +23,7 @@ public class GamingInteraction : MonoBehaviour
         if(other.CompareTag("Player"))
         {
             playerInside = true;
+            playerAnimator = other.GetComponent<PlayerInteractionAnimator>();
 
             GameUIManager.instance.ShowMessage("Press E To Play Games");
         }
@@ -27,6 +34,7 @@ public class GamingInteraction : MonoBehaviour
         if(other.CompareTag("Player"))
         {
             playerInside = false;
+            playerAnimator = null;
 
             GameUIManager.instance.HideMessage();
         }

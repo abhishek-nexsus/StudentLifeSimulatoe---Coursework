@@ -131,18 +131,22 @@ public class GameManager : MonoBehaviour
 
         if(GameUIManager.instance != null)
         {
+            string resultMessage;
+
             if(grades < 40)
             {
-                GameUIManager.instance.ShowResult("FAILED");
+                resultMessage = "FAILED\nYou need to focus more on your studies.";
             }
             else if(grades >= 40 && grades < 80)
             {
-                GameUIManager.instance.ShowResult("PASSED");
+                resultMessage = "PASSED\nGood job! Keep working hard and stay consistent.";
             }
             else
             {
-                GameUIManager.instance.ShowResult("EXCELLENT");
+                resultMessage = "EXCELLENT\nExcellent work! Keep it up and continue balancing your life.";
             }
+
+            GameUIManager.instance.ShowResult(resultMessage);
         }
     }
 
